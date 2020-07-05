@@ -10,6 +10,10 @@ import RecoveryPassoword from '../screens/RecoveryPassword';
 import Export from '../screens/Export';
 import Users from '../screens/Users';
 import UsersForm from '../screens/UsersForm';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
+import Feather from 'react-native-vector-icons/Feather';
+import { colors } from '../theme';
 
 const RegisterStack = createStackNavigator();
 const Register = () => (
@@ -30,10 +34,51 @@ const UsersScreens = () => (
 const Tab = createBottomTabNavigator();
 
 const LoggedIn = () => (
-  <Tab.Navigator>
-    <Tab.Screen name="Register" component={Register} />
-    <Tab.Screen name="Export" component={Export} />
-    <Tab.Screen name="Users" component={UsersScreens} />
+  <Tab.Navigator
+    tabBarOptions={{
+      activeTintColor: colors.primary,
+      inactiveTintColor: 'gray',
+      style: {
+        height: 80,
+      },
+      tabStyle: {
+        marginTop: 5,
+        height: 80,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
+      labelStyle: {
+        fontSize: 16,
+        marginBottom: 10,
+      },
+    }}
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        if (route.name === 'Register') {
+          return <AntDesign name="pluscircleo" size={32} color={color} />;
+        } else if (route.name === 'Export') {
+          return <Entypo name="export" size={32} color={color} />;
+        } else {
+          return <Feather name="users" size={32} color={color} />;
+        }
+      },
+    })}
+  >
+    <Tab.Screen
+      name="Register"
+      options={{ tabBarLabel: 'Novo Registro' }}
+      component={Register}
+    />
+    <Tab.Screen
+      name="Export"
+      options={{ tabBarLabel: 'Exportação' }}
+      component={Export}
+    />
+    <Tab.Screen
+      name="Users"
+      options={{ tabBarLabel: 'Usuários' }}
+      component={UsersScreens}
+    />
   </Tab.Navigator>
 );
 
