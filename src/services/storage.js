@@ -21,9 +21,8 @@ export default class StorageService {
     await AsyncStorage.setItem(TOKEN_KEY, token);
   }
 
-  static async getToken() {
-    const token = await AsyncStorage.getItem(TOKEN_KEY);
-    return token;
+  static getToken() {
+    return AsyncStorage.getItem(TOKEN_KEY);
   }
 
   static async removeToken() {

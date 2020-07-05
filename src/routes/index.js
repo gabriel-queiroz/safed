@@ -12,41 +12,42 @@ import Users from '../screens/Users';
 import UsersForm from '../screens/UsersForm';
 
 const RegisterStack = createStackNavigator();
-const Register = () => {
+const Register = () => (
   <RegisterStack.Navigator>
     <RegisterStack.Screen name="ReadBarCode" component={ReadBarCode} />
     <RegisterStack.Screen name="ReadQRCode" component={ReadQRCode} />
-  </RegisterStack.Navigator>;
-};
+  </RegisterStack.Navigator>
+);
 
 const UsersStack = createStackNavigator();
-const Users = () => {
+const UsersScreens = () => (
   <UsersStack.Navigator>
     <UsersStack.Screen name="Users" component={Users} />
     <UsersStack.Screen name="UsersForm" component={UsersForm} />
-  </UsersStack.Navigator>;
-};
+  </UsersStack.Navigator>
+);
 
 const Tab = createBottomTabNavigator();
-const LoggedIn = () => {
+
+const LoggedIn = () => (
   <Tab.Navigator>
     <Tab.Screen name="Register" component={Register} />
     <Tab.Screen name="Export" component={Export} />
-    <Tab.Screen name="Users" component={SettingsStackScreen} />
-  </Tab.Navigator>;
-};
+    <Tab.Screen name="Users" component={UsersScreens} />
+  </Tab.Navigator>
+);
 
 const LoggedOutStack = createStackNavigator();
 
-const LoggedOut = () => {
+const LoggedOut = () => (
   <LoggedOutStack.Navigator>
     <LoggedOutStack.Screen name="Login" component={Login} />
     <LoggedOutStack.Screen
       name="RecoveryPassoword"
       component={RecoveryPassoword}
     />
-  </LoggedOutStack.Navigator>;
-};
+  </LoggedOutStack.Navigator>
+);
 
 const Routes = ({ isLogged }) => (
   <NavigationContainer>
