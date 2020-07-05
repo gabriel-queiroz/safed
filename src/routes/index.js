@@ -15,9 +15,11 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
 import { colors } from '../theme';
 
+const stackProps = { headerMode: 'none' };
+
 const RegisterStack = createStackNavigator();
 const Register = () => (
-  <RegisterStack.Navigator>
+  <RegisterStack.Navigator {...stackProps}>
     <RegisterStack.Screen name="ReadBarCode" component={ReadBarCode} />
     <RegisterStack.Screen name="ReadQRCode" component={ReadQRCode} />
   </RegisterStack.Navigator>
@@ -25,7 +27,7 @@ const Register = () => (
 
 const UsersStack = createStackNavigator();
 const UsersScreens = () => (
-  <UsersStack.Navigator>
+  <UsersStack.Navigator {...stackProps}>
     <UsersStack.Screen name="Users" component={Users} />
     <UsersStack.Screen name="UsersForm" component={UsersForm} />
   </UsersStack.Navigator>
@@ -85,7 +87,7 @@ const LoggedIn = () => (
 const LoggedOutStack = createStackNavigator();
 
 const LoggedOut = () => (
-  <LoggedOutStack.Navigator>
+  <LoggedOutStack.Navigator {...stackProps}>
     <LoggedOutStack.Screen name="Login" component={Login} />
     <LoggedOutStack.Screen
       name="RecoveryPassoword"
