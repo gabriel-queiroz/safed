@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Routes from './routes';
 import StorageService from './services/storage';
 import Loader from './components/Loader';
+import { Container } from './theme';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,7 +20,11 @@ const App = () => {
       });
   }, []);
 
-  return <>{isLoading ? <Loader /> : <Routes isLogged={!token} />}</>;
+  return (
+    <Container>
+      {isLoading ? <Loader /> : <Routes isLogged={!token} />}
+    </Container>
+  );
 };
 
 export default App;
