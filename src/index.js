@@ -3,6 +3,7 @@ import Routes from './routes';
 import StorageService from './services/storage';
 import Loader from './components/Loader';
 import { Container } from './theme';
+import StatusBar from './components/StatusBar';
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,7 +23,14 @@ const App = () => {
 
   return (
     <Container>
-      {isLoading ? <Loader /> : <Routes isLogged={!token} />}
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          <StatusBar />
+          <Routes isLogged={!token} />
+        </>
+      )}
     </Container>
   );
 };
