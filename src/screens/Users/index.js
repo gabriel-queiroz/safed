@@ -1,10 +1,75 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { useState } from 'react';
 
-const Users = () => (
-  <View>
-    <Text>Usuários</Text>
-  </View>
-);
+import { RefreshControl } from 'react-native';
+import {
+  Container,
+  ContentList,
+  StatusBar,
+  List,
+  ContainerAux,
+} from './styles';
+import ListItem from './listItem';
+import HeaderInspections from '../../components//Header';
+import { colors } from '../../theme';
 
-export default Users;
+const InspectionForMe = ({ navigation }) => {
+  const [list, setList] = useState([
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+  ]);
+  const [loading, setLoading] = useState(false);
+  const [loadingScroll, setLoadingScroll] = useState(false);
+  const [pagination, setPagination] = useState({ page: 1 });
+  const [finishedMessage, setFinishedMessage] = useState(false);
+  const [networkError, setNetworkError] = useState(500);
+
+  const renderItem = ({ item, index }) => <ListItem />;
+
+  return (
+    <>
+      <ContainerAux />
+      <Container>
+        <StatusBar />
+        <ContentList>
+          <List
+            keyExtractor={(item) => {
+              return item.id;
+            }}
+            data={list}
+            refreshing={loading}
+            onRefresh={() => {}}
+            renderItem={renderItem}
+            onEndReached={() => {}}
+            onEndReachedThreshold={0.1}
+            refreshControl={
+              <RefreshControl
+                refreshing={loading}
+                title=""
+                style={{
+                  backgroundColor: colors.primary,
+                }}
+                onRefresh={() => {}}
+                tintColor={colors.white}
+              />
+            }
+            ListHeaderComponent={
+              <HeaderInspections iconIsCalendar title="Minhas Vistorias" />
+            }
+          />
+        </ContentList>
+      </Container>
+    </>
+  );
+};
+
+export default InspectionForMe;

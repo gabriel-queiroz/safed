@@ -5,7 +5,7 @@ const http = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-import { showMessage, Types, Duration } from '~/services/message';
+import { showMessage, Types, Duration } from './message';
 
 http.interceptors.response.use(
   (response) => {
