@@ -2,16 +2,37 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../theme';
 
 const styles = StyleSheet.create({
+  safeTopContainer: {
+    flex: 0,
+    backgroundColor: colors.darkBlue,
+  },
   safeContainer: {
     flex: 1,
+    backgroundColor: colors.darkBlue,
+  },
+  safeTopContainerPreview: {
+    flex: 0,
+  },
+  safeContainerPreview: {
+    flex: 1,
+  },
+  pendingView: {
+    flex: 1,
     backgroundColor: colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  barCodeLine: {
+    width: 2,
+    backgroundColor: colors.happyYolk,
+    height: '95%',
   },
   headerTop: {
     flex: 1,
     height: '100%',
     maxWidth: 100,
     alignItems: 'center',
-    backgroundColor: '#153587',
+    backgroundColor: colors.darkBlue,
     paddingVertical: '30%',
   },
   headerBottom: {
@@ -33,6 +54,8 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 2,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   headerTitle: {
     color: '#fff',
