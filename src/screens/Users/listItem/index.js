@@ -1,14 +1,28 @@
 import React from 'react';
-import { Container, Header, HeaderTitle, Row, Email } from './styles';
+import {
+  Container,
+  Header,
+  HeaderTitle,
+  Buttons,
+  Button,
+  ButtonIcon,
+  Email,
+} from './styles';
 const listItem = () => {
   return (
     <Container>
       <Header>
         <HeaderTitle>Gabriel</HeaderTitle>
-      </Header>
-      <Row>
         <Email>gabrielqueirozzn@gmail.com</Email>
-      </Row>
+      </Header>
+      <Buttons>
+        <Button>
+          <ButtonIcon name="pencil" />
+        </Button>
+        <Button danger>
+          <ButtonIcon name="trash" />
+        </Button>
+      </Buttons>
     </Container>
   );
 };

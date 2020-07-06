@@ -5,12 +5,16 @@ import {
   widthPercentageToDP,
   heightPercentageToDP,
 } from '../../../theme';
+import VectorIcons from 'react-native-vector-icons/EvilIcons';
 
 export const Container = styled(Animated.View).attrs({
   elevation: 7,
 })`
   background-color: ${colors.white};
   border-radius: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   margin: ${widthPercentageToDP('3%')}px;
   padding: ${widthPercentageToDP('4%')}px;
   ${(props) =>
@@ -19,10 +23,28 @@ export const Container = styled(Animated.View).attrs({
 `;
 
 export const Header = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
   margin-bottom: ${heightPercentageToDP('1%')};
 `;
+
+export const Buttons = styled.View`
+  flex-direction: row;
+`;
+
+export const Button = styled.TouchableOpacity`
+  background-color: ${(props) => (props.danger ? colors.red : colors.darkBlue)};
+  border-radius: 8px;
+  margin: 10px;
+  height: 50px;
+  width: 50px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ButtonIcon = styled(VectorIcons).attrs((props) => ({
+  color: colors.white,
+  size: 30,
+  name: props.name,
+}))``;
 
 const TextBase = styled.Text.attrs({
   ellipsizeMode: 'tail',
