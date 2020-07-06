@@ -102,7 +102,7 @@ export const Content = styled.View`
 
 export const ContentList = styled.View`
   flex: 1;
-  background-color: ${colors.darkBlue};
+
   width: 100%;
   height: 100%;
   padding-top: ${Platform.OS === 'ios' ? heightPercentageToDP('4.6%') : 0};
@@ -115,7 +115,6 @@ export const StatusBar = styled.StatusBar.attrs({
 
 export const List = styled.FlatList.attrs({
   ListHeaderComponentStyle: {
-    backgroundColor: colors.darkBlue,
     width: '100%',
     margin: 0,
   },

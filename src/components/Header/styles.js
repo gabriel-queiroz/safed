@@ -14,8 +14,7 @@ export const Title = styled.Text`
 export const Header = styled.View`
   padding: ${heightPercentageToDP('1%')}px ${widthPercentageToDP('4%')}px;
   background-color: ${colors.darkBlue};
-  height: ${heightPercentageToDP('23%')};
-  min-height: 180px;
+  height: ${heightPercentageToDP('10%')};
 `;
 
 export const HeaderContent = styled.View`
@@ -23,6 +22,7 @@ export const HeaderContent = styled.View`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  border-radius: 20px;
 `;
 
 export const UserData = styled(Animated.View)`
@@ -38,6 +38,7 @@ export const HeaderFooter = styled.View`
   align-items: center;
   z-index: 999999999;
   height: ${heightPercentageToDP('8%')};
+  border-radius: 20px;
 `;
 
 export const Text = styled.Text`
