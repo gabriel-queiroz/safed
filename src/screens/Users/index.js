@@ -13,7 +13,7 @@ import ListItem from './listItem';
 import HeaderInspections from '../../components//Header';
 import { colors } from '../../theme';
 
-const InspectionForMe = ({ navigation }) => {
+const Users = ({ navigation }) => {
   const [list, setList] = useState([
     {},
     {},
@@ -28,6 +28,7 @@ const InspectionForMe = ({ navigation }) => {
     {},
     {},
   ]);
+
   const [loading, setLoading] = useState(false);
   const [loadingScroll, setLoadingScroll] = useState(false);
   const [pagination, setPagination] = useState({ page: 1 });
@@ -70,7 +71,7 @@ const InspectionForMe = ({ navigation }) => {
         </ContentList>
         <FloatButton
           onPress={() => {
-            console.log('hi');
+            navigation.push('UsersForm');
           }}
         />
       </Container>
@@ -78,4 +79,4 @@ const InspectionForMe = ({ navigation }) => {
   );
 };
 
-export default InspectionForMe;
+export default Users;
