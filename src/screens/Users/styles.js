@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { Animated, Platform } from 'react-native';
 import { BorderlessButton } from 'react-native-gesture-handler';
 import { colors, widthPercentageToDP, heightPercentageToDP } from '../../theme';
+import ActionButton from 'react-native-action-button';
 // import MenuIcon from '~/assets/images/menu.png';
 // import IconUser from '~/assets/images/user.png';
 
@@ -119,4 +120,10 @@ export const List = styled.FlatList.attrs({
     margin: 0,
   },
   contentContainerStyle: { flexGrow: 1, backgroundColor: colors.almostWhite },
+})``;
+
+export const FloatButton = styled(ActionButton).attrs({
+  buttonColor: colors.lightBlue,
+  size: 70,
+  buttonTextStyle: { fontSize: 30 },
 })``;

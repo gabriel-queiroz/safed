@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { RefreshControl } from 'react-native';
 import {
   Container,
@@ -7,7 +6,9 @@ import {
   StatusBar,
   List,
   ContainerAux,
+  FloatButton,
 } from './styles';
+import ActionButton from 'react-native-action-button';
 import ListItem from './listItem';
 import HeaderInspections from '../../components//Header';
 import { colors } from '../../theme';
@@ -67,6 +68,11 @@ const InspectionForMe = ({ navigation }) => {
             }
           />
         </ContentList>
+        <FloatButton
+          onPress={() => {
+            console.log('hi');
+          }}
+        />
       </Container>
     </>
   );
