@@ -4,8 +4,19 @@ import StorageService from './services/storage';
 import Loader from './components/Loader';
 import { Container } from './theme';
 import StatusBar from './components/StatusBar';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { colors } from './theme';
 
 const App = () => {
+  const theme = {
+    ...DefaultTheme,
+    roundness: 2,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: colors.darkBlue,
+    },
+  };
+
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(null);
 
@@ -22,16 +33,18 @@ const App = () => {
   }, []);
 
   return (
-    <Container>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <StatusBar />
-          <Routes isLogged={!token} />
-        </>
-      )}
-    </Container>
+    <PaperProvider theme={theme}>
+      <Container>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <StatusBar />
+            <Routes isLogged={!token} />
+          </>
+        )}
+      </Container>
+    </PaperProvider>
   );
 };
 

@@ -10,7 +10,7 @@ import {
 } from './styles';
 import ActionButton from 'react-native-action-button';
 import ListItem from './listItem';
-import HeaderInspections from '../../components//Header';
+import Header from '../../components/Header';
 import { colors } from '../../theme';
 
 const Users = ({ navigation }) => {
@@ -41,7 +41,6 @@ const Users = ({ navigation }) => {
     <>
       <ContainerAux />
       <Container>
-        <StatusBar />
         <ContentList>
           <List
             keyExtractor={(item) => {
@@ -64,9 +63,7 @@ const Users = ({ navigation }) => {
                 tintColor={colors.white}
               />
             }
-            ListHeaderComponent={
-              <HeaderInspections iconIsCalendar title="Minhas Vistorias" />
-            }
+            ListHeaderComponent={<Header withMenu title="Usuários" />}
           />
         </ContentList>
         <FloatButton

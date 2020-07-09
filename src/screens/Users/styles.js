@@ -109,11 +109,6 @@ export const ContentList = styled.View`
   padding-top: ${Platform.OS === 'ios' ? heightPercentageToDP('4.6%') : 0};
 `;
 
-export const StatusBar = styled.StatusBar.attrs({
-  barStyle: 'light-content',
-  backgroundColor: colors.darkBlue,
-})``;
-
 export const List = styled.FlatList.attrs({
   ListHeaderComponentStyle: {
     width: '100%',

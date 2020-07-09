@@ -1,29 +1,21 @@
-import React from 'react';
-import { Alert, TouchableOpacity } from 'react-native';
+import * as React from 'react';
+import { Appbar } from 'react-native-paper';
+import { Header as HeaderCom } from './styles';
 
-import {
-  Header,
-  HeaderContent,
-  UserData,
-  Avatar,
-  Text,
-  Name,
-  Menu,
-  IconMenu,
-  HeaderFooter,
-  Title,
-  IconScreen,
-} from './styles';
+const Header = ({ withGoBack, title, withMenu }) => {
+  const _goBack = () => console.log('Went back');
 
-const HeaderInspections = ({ navigation, title, iconIsCalendar }) => {
+  const _handleSearch = () => console.log('Searching');
+
+  const _handleMore = () => console.log('Shown more');
+
   return (
-    <Header>
-      <HeaderFooter>
-        <Title>Usuários</Title>
-        {/* <IconScreen source={iconIsCalendar ? Calendar : Location} /> */}
-      </HeaderFooter>
-    </Header>
+    <HeaderCom>
+      {withGoBack && <Appbar.BackAction onPress={_goBack} />}
+      <Appbar.Content title={title} />
+      {withMenu && <Appbar.Action icon="dots-vertical" onPress={_handleMore} />}
+    </HeaderCom>
   );
 };
 
-export default HeaderInspections;
+export default Header;
