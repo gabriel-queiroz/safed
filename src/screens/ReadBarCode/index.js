@@ -10,7 +10,7 @@ import { RNCamera } from 'react-native-camera';
 import styles from './styles';
 import { colors } from '../../theme';
 
-export default function ReadBarCode() {
+export default function ReadBarCode({ navigation }) {
   const PendingView = () => (
     <>
       <SafeAreaView style={styles.safeTopContainerPreview} />
@@ -55,7 +55,10 @@ export default function ReadBarCode() {
             return (
               <>
                 <SafeAreaView style={styles.headerBottom}>
-                  <TouchableOpacity style={styles.buttonCode}>
+                  <TouchableOpacity
+                    onPress={() => navigation.push('InputBarCode')}
+                    style={styles.buttonCode}
+                  >
                     <Text style={styles.buttonCodeTitle}>
                       Digitar o código de barra
                     </Text>

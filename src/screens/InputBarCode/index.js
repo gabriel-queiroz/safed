@@ -8,6 +8,7 @@ import {
   Form,
 } from './styles';
 import Header from '../../components/Header';
+import StatusBar from '../../components/StatusBar';
 
 const UserForm = () => {
   const [barCode, setBarCode] = useState('');
@@ -15,6 +16,7 @@ const UserForm = () => {
 
   return (
     <Container>
+      <StatusBar />
       <Header title="Insira o código de Barra" withGoBack />
       <Form>
         <InputBarCode

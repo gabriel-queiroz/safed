@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ReadBarCode from '../screens/ReadBarCode';
+import InputBarCode from '../screens/InputBarCode';
 import ReadQRCode from '../screens/ReadQRCode';
 import Login from '../screens/Login';
 import RecoveryPassoword from '../screens/RecoveryPassword';
@@ -21,6 +22,7 @@ const RegisterStack = createStackNavigator();
 const Register = () => (
   <RegisterStack.Navigator {...stackProps}>
     <RegisterStack.Screen name="ReadBarCode" component={ReadBarCode} />
+    <RegisterStack.Screen name="InputBarCode" component={InputBarCode} />
     <RegisterStack.Screen name="ReadQRCode" component={ReadQRCode} />
   </RegisterStack.Navigator>
 );

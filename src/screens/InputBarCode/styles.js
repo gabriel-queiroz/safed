@@ -30,7 +30,7 @@ export const InputBarCode = styled(TextInput).attrs({
   },
 })`
   margin: 10px 0px;
-  height: 100px;
+  height: 150px;
   background-color: ${colors.white};
 `;
 
