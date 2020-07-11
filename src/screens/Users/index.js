@@ -3,12 +3,10 @@ import { RefreshControl } from 'react-native';
 import {
   Container,
   ContentList,
-  StatusBar,
   List,
   ContainerAux,
   FloatButton,
 } from './styles';
-import ActionButton from 'react-native-action-button';
 import ListItem from './listItem';
 import Header from '../../components/Header';
 import { colors } from '../../theme';
