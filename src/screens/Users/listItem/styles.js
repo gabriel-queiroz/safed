@@ -11,7 +11,7 @@ export const Container = styled(Animated.View).attrs({
   elevation: 7,
 })`
   background-color: ${colors.white};
-  border-radius: 20px;
+  border-radius: 10px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
