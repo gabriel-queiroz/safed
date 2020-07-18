@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Container,
   RadioButtonContainer,
@@ -9,12 +9,44 @@ import {
   ButtonText,
   Loading,
   RadioButton,
+  ContainerDatePicker,
+  DatePickerContainer,
+  DatePicker,
+  DatePickerTitle,
+  DatePickerValue,
 } from './styles';
 import Header from '../../components/Header';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import dayjs from 'dayjs';
 
 const Export = () => {
-  const [value, setValue] = React.useState('first');
+  const [value, setValue] = useState('first');
+  const [dateInitial, setDateInitial] = useState(new Date());
+  const [isInitialDate, setIsInitialDate] = useState(false);
+  const [dateFinal, setDateFinal] = useState(new Date());
+  const [mode, setMode] = useState('date');
+  const [showDatePicker, setShowDatePicker] = useState(false);
 
+  const onChange = (event, selectedDate) => {
+    setShowDatePicker(false);
+    if (selectedDate) {
+      if (isInitialDate) {
+        setDateInitial(selectedDate);
+      } else {
+        setDateFinal(selectedDate);
+      }
+    }
+    setIsInitialDate(false);
+  };
+
+  const formatDate = (date) => {
+    return dayjs(date).format('DD/MM/YYYY');
+  };
+
+  const handleOpenDatePicker = (isInitial) => {
+    setIsInitialDate(isInitial);
+    setShowDatePicker(true);
+  };
   return (
     <Container>
       <Header title="Exportação de Dados" withMenu></Header>
@@ -33,35 +65,54 @@ const Export = () => {
             <RadioButtonTitle>Ontem</RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton
-              value="Últimos 7 dias"
-              onPress={() => setChecked('first')}
-            />
+            <RadioButton value="Últimos 7 dias" />
             <RadioButtonTitle>Últimos 7 dias </RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton
-              value="Últimos 15 dias"
-              onPress={() => setChecked('first')}
-            />
+            <RadioButton value="Últimos 15 dias" />
             <RadioButtonTitle>Últimos 15 dias </RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton
-              value="Últimos 30 dias"
-              onPress={() => setChecked('first')}
-            />
+            <RadioButton value="Últimos 30 dias" />
             <RadioButtonTitle>Últimos 30 dias </RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton
-              value="Intervalo"
-              onPress={() => setChecked('first')}
-            />
+            <RadioButton value="Intervalo" />
             <RadioButtonTitle>Intervalo </RadioButtonTitle>
           </RadioButtonContainer>
         </RadioButton.Group>
-        <ButtonSubmit onPress={() => {}}>
+        {value === 'Intervalo' && (
+          <ContainerDatePicker>
+            <DatePickerContainer>
+              <DatePickerTitle>Data Inicial</DatePickerTitle>
+              <DatePicker onPress={() => handleOpenDatePicker(true)}>
+                <DatePickerValue>
+                  {dateInitial ? formatDate(dateInitial) : 'Selecione a Data'}
+                </DatePickerValue>
+              </DatePicker>
+            </DatePickerContainer>
+            <DatePickerContainer>
+              <DatePickerTitle>Data Final</DatePickerTitle>
+              <DatePicker onPress={() => handleOpenDatePicker(false)}>
+                <DatePickerValue>
+                  {dateFinal ? formatDate(dateFinal) : 'Selecione a Data'}
+                </DatePickerValue>
+              </DatePicker>
+            </DatePickerContainer>
+          </ContainerDatePicker>
+        )}
+
+        {showDatePicker && (
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={isInitialDate ? dateInitial : dateFinal}
+            mode={mode}
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+        )}
+        <ButtonSubmit onPress={() => setShow(true)}>
           {false ? <Loading /> : <ButtonText> Exportar </ButtonText>}
         </ButtonSubmit>
       </Content>

@@ -47,9 +47,36 @@ export const ButtonSubmit = styled(TouchableRipple).attrs({
 
 export const RadioButton = styled(RadioButtonPaper).attrs({
   color: colors.darkBlue,
-})`
-  height: 50px;
-  width: 50px;
+})``;
+
+export const ContainerDatePicker = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+`;
+
+export const DatePickerContainer = styled.View`
+  width: 48%;
+`;
+
+export const DatePicker = styled.TouchableOpacity`
+  width: 100%;
+  border-width: 1px;
+  border-radius: 5px;
+  border-color: ${colors.mediumGray};
+  padding: 10px 10px;
+`;
+
+export const DatePickerValue = styled.Text`
+  font-size: 18px;
+  color: ${colors.mediumGray};
+`;
+
+export const DatePickerTitle = styled.Text`
+  font-size: 18px;
+  color: ${colors.mediumGray};
+  margin-bottom: 5px;
 `;
 
 export const ButtonText = styled.Text`
