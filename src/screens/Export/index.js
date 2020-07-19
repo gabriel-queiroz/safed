@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Container,
   RadioButtonContainer,
@@ -57,31 +57,30 @@ const Export = () => {
           value={value}
         >
           <RadioButtonContainer>
-            <RadioButton value="Hoje" onPress={() => setChecked('first')} />
+            <RadioButton value="today" onPress={() => setChecked('first')} />
             <RadioButtonTitle>Hoje</RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton value="Ontem" onPress={() => setChecked('first')} />
+            <RadioButton
+              value="yesterday"
+              onPress={() => setChecked('first')}
+            />
             <RadioButtonTitle>Ontem</RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton value="Últimos 7 dias" />
+            <RadioButton value="week" />
             <RadioButtonTitle>Últimos 7 dias </RadioButtonTitle>
-          </RadioButtonContainer>
-          <RadioButtonContainer>
-            <RadioButton value="Últimos 15 dias" />
-            <RadioButtonTitle>Últimos 15 dias </RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
             <RadioButton value="Últimos 30 dias" />
             <RadioButtonTitle>Últimos 30 dias </RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton value="Intervalo" />
+            <RadioButton value="interval" />
             <RadioButtonTitle>Intervalo </RadioButtonTitle>
           </RadioButtonContainer>
         </RadioButton.Group>
-        {value === 'Intervalo' && (
+        {value === 'interval' && (
           <ContainerDatePicker>
             <DatePickerContainer>
               <DatePickerTitle>Data Inicial</DatePickerTitle>
