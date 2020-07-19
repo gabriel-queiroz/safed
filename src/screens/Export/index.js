@@ -57,14 +57,11 @@ const Export = () => {
           value={value}
         >
           <RadioButtonContainer>
-            <RadioButton value="today" onPress={() => setChecked('first')} />
+            <RadioButton value="today" />
             <RadioButtonTitle>Hoje</RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
-            <RadioButton
-              value="yesterday"
-              onPress={() => setChecked('first')}
-            />
+            <RadioButton value="yesterday" />
             <RadioButtonTitle>Ontem</RadioButtonTitle>
           </RadioButtonContainer>
           <RadioButtonContainer>
