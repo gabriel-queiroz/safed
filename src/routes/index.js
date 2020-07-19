@@ -21,9 +21,9 @@ const stackProps = { headerMode: 'none' };
 const RegisterStack = createStackNavigator();
 const Register = () => (
   <RegisterStack.Navigator {...stackProps}>
+    <RegisterStack.Screen name="ReadQRCode" component={ReadQRCode} />
     <RegisterStack.Screen name="ReadBarCode" component={ReadBarCode} />
     <RegisterStack.Screen name="InputBarCode" component={InputBarCode} />
-    <RegisterStack.Screen name="ReadQRCode" component={ReadQRCode} />
   </RegisterStack.Navigator>
 );
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { RefreshControl } from 'react-native';
 import {
   Container,
@@ -10,6 +10,8 @@ import {
 import ListItem from './listItem';
 import Header from '../../components/Header';
 import { colors } from '../../theme';
+import UserService from '../../services/user';
+import { showMessage, Types } from '../../services/message';
 
 const Users = ({ navigation }) => {
   const [list, setList] = useState([
@@ -33,7 +35,32 @@ const Users = ({ navigation }) => {
   const [finishedMessage, setFinishedMessage] = useState(false);
   const [networkError, setNetworkError] = useState(500);
 
-  const renderItem = ({ item, index }) => <ListItem />;
+  const deleteUser = async (userId) => {
+    try {
+      await UserService.delete(userId);
+      showMessage({
+        message: 'Usuário excluido com sucesso!',
+        type: Types.SUCCESS,
+      });
+    } catch (error) {
+      showMessage({
+        message: 'Erro ao excluir usuário!',
+        description: 'Verifique sua conexão com a internet',
+        type: Types.DANGER,
+      });
+    }
+  };
+
+  const renderItem = ({ item, index }) => <ListItem onDelete={deleteUser} />;
+
+  const getUsers = async () => {
+    try {
+      const { data } = await UserService.getAll();
+    } catch (error) {}
+    setList(data);
+  };
+
+  useEffect(() => getUsers, []);
 
   return (
     <>

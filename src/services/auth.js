@@ -1,10 +1,10 @@
 import http from './http.js';
 
 export default class AuthService {
-  login(email, password) {
+  static login(email, password) {
     return http.post('auth/login');
   }
-  currentUser() {
+  static currentUser() {
     return http.get('/auth/user');
   }
 }

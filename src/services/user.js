@@ -1,16 +1,16 @@
 import http from './http.js';
 
 export default class UserService {
-  get() {
+  static getAll() {
     return http.get('/user');
   }
-  post(data) {
+  static post(data) {
     return http.post('/user', data);
   }
-  update(userId, data) {
+  static update(userId, data) {
     return http.put(`user/${userId}`, data);
   }
-  delete(userId) {
+  static delete(userId) {
     return http.delete(`user/${userId}`);
   }
 }
