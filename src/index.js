@@ -6,6 +6,7 @@ import { Container } from './theme';
 import StatusBar from './components/StatusBar';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { colors } from './theme';
+import FlashMessage from 'react-native-flash-message';
 
 const App = () => {
   const theme = {
@@ -35,14 +36,17 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <Container>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          <>
-            <StatusBar />
-            <Routes isLogged={!token} />
-          </>
-        )}
+        <>
+          {isLoading ? (
+            <Loader />
+          ) : (
+            <>
+              <StatusBar />
+              <Routes isLogged={token} />
+            </>
+          )}
+          <FlashMessage position="top" />
+        </>
       </Container>
     </PaperProvider>
   );
