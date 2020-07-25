@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   Logo,
   Container,
@@ -14,10 +14,12 @@ import StorageService from '../../services/storage';
 import { useSelector, useDispatch } from 'react-redux';
 import { showMessage, Types } from '../../services/message';
 import { actions } from '../../store/ducks/auth';
+import LogoVolks from '../../assets/icon.png';
 
 const Login = ({ navigation }) => {
   const userData = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
+  const refInputPassword = useRef(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -52,6 +54,7 @@ const Login = ({ navigation }) => {
   return (
     <Container>
       <StatusBar />
+      <Logo source={LogoVolks} />
       <InputEmail
         label="Email *"
         onChangeText={(value) => setEmail(value)}
@@ -60,15 +63,16 @@ const Login = ({ navigation }) => {
         autoCapitalize="none"
         returnKeyType="next"
         keyboardType="email-address"
-        onSubmitEditing={() => console.log('next focus')}
+        onSubmitEditing={() => refInputPassword.current.focus()}
       />
       <InputPassword
+        ref={refInputPassword}
         label="Senha *"
         secureTextEntry
         returnKeyType="done"
         onChangeText={(value) => setPassword(value)}
         value={password}
-        ons
+        onSubmitEditing={handleFormSubmit}
       />
       <ButtonSubmit onPress={handleFormSubmit}>
         {loading ? <Loading /> : <ButtonText> Entrar </ButtonText>}
