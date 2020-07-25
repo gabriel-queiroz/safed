@@ -25,18 +25,16 @@ const App = () => {
   useEffect(() => {
     StorageService.getToken()
       .then((tokenData) => {
-        console.log(tokenData);
         if (!tokenData) {
-          console.log('ahhdhd');
           return dispatch({ type: actions.CHANGE_LOADER, payload: false });
         }
-        // dispatch({ action: actions.LOAD_TOKEN, payload: tokenData });
+        dispatch({ action: actions.LOAD_TOKEN, payload: tokenData });
       })
       .catch((error) => {
         dispatch({ type: actions.CHANGE_LOADER, payload: false });
       });
   }, []);
-
+  console.log(authReducer.token);
   return (
     <PaperProvider theme={theme}>
       <Container>
