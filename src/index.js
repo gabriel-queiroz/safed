@@ -9,6 +9,7 @@ import { actions } from './store/ducks/auth';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { colors } from './theme';
 import FlashMessage from 'react-native-flash-message';
+import AuthService from './services/auth';
 
 const App = () => {
   const theme = {
@@ -23,17 +24,24 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    initApp();
+  }, []);
+
+  const initApp = async () => {
     StorageService.getToken()
-      .then((tokenData) => {
+      .then(async (tokenData) => {
         if (!tokenData) {
           return dispatch({ type: actions.CHANGE_LOADER, payload: false });
         }
+        const { data } = await AuthService.currentUser();
+        dispatch({ type: actions.LOADER_USER, payload: data });
         dispatch({ type: actions.LOAD_TOKEN, payload: tokenData });
       })
       .catch((error) => {
         dispatch({ type: actions.CHANGE_LOADER, payload: false });
       });
-  }, []);
+  };
+
   return (
     <PaperProvider theme={theme}>
       <Container>

@@ -14,6 +14,7 @@ import UsersForm from '../screens/UsersForm';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
+import User from '../screens/User';
 import { colors } from '../theme';
 
 const stackProps = { headerMode: 'none' };
@@ -62,6 +63,8 @@ const LoggedIn = () => (
           return <AntDesign name="pluscircleo" size={32} color={color} />;
         } else if (route.name === 'Export') {
           return <Entypo name="export" size={32} color={color} />;
+        } else if (route.name === 'Profile') {
+          return <Feather name="user" size={32} color={color} />;
         } else {
           return <Feather name="users" size={32} color={color} />;
         }
@@ -82,6 +85,11 @@ const LoggedIn = () => (
       name="Users"
       options={{ tabBarLabel: 'Usuários' }}
       component={UsersScreens}
+    />
+    <Tab.Screen
+      name="Profile"
+      options={{ tabBarLabel: 'Meu Perfil' }}
+      component={User}
     />
   </Tab.Navigator>
 );

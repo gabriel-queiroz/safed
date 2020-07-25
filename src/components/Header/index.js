@@ -30,8 +30,6 @@ const Header = ({ withGoBack, title, withMenu, onGoBack = () => {} }) => {
           visible={menuOpen}
           onDismiss={() => setMenuOpen(false)}
         >
-          <Menu.Item onPress={() => {}} title="Alterar Senha" />
-          <Divider />
           <Menu.Item onPress={logout} title="Sair" />
         </Menu>
       )}

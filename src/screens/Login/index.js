@@ -32,8 +32,10 @@ const Login = ({ navigation }) => {
         const { data } = await AuthService.login(email, password);
         const token = data.access_token;
         await StorageService.saveToken(token);
+        const { data: dataUser } = await AuthService.currentUser();
+        dispatch({ type: actions.LOADER_USER, payload: dataUser });
         showMessage({
-          message: 'Bem vindo',
+          message: `Bem-vindo ${dataUser.name}`,
           type: Types.SUCCESS,
         });
         dispatch({ type: actions.LOAD_TOKEN, payload: token });
