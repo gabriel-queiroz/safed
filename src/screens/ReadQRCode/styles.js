@@ -21,3 +21,16 @@ export const Content = styled.View`
 export const Qrcode = styled.View`
   flex: 3;
 `;
+
+export const ContainerLoader = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const LoaderMessage = styled.Text`
+  font-size: 20px;
+  margin-left: 20px;
+`;
+
+export const Loader = styled.ActivityIndicator``;
