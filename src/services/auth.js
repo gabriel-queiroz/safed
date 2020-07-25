@@ -7,4 +7,7 @@ export default class AuthService {
   static currentUser() {
     return http.get('/auth/user');
   }
+  static resetPassword(data) {
+    return http.post('/password/reset', data);
+  }
 }

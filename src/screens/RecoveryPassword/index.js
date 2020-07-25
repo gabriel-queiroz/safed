@@ -1,33 +1,67 @@
 import React, { useState } from 'react';
 import {
-  Logo,
   Container,
   InputEmail,
-  InputPassword,
   ButtonSubmit,
   ButtonText,
   Loading,
+  Content,
+  Logo,
 } from './styles';
 import StatusBar from '../../components/StatusBar';
+import Header from '../../components/Header';
+import LogoVolks from '../../assets/icon.png';
+import AuthService from '../../services/auth';
 
-const Login = () => {
+const RecoveryPassword = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const handleSubmit = () => {
+    setLoading(true);
+    try {
+      await AuthService.resetPassword({email});
+      showMessage({
+        message: 'Você receberá uma email com uma nova senha!',
+        type: Types.SUCCESS,
+      });
+    } catch (error) {
+      showMessage({
+        message: 'Erro ao recuperar senha, verifique se o email está correto!',
+        type: Types.DANGER,
+      });
+    }finally{
+      setLoading(false);
+    }
+  };
 
   return (
     <Container>
       <StatusBar />
-      {/* <Logo source={LogoImg} /> */}
-      <InputEmail
-        label="Email *"
-        onChangeText={(value) => setEmail(value)}
-        value={email}
+      <Header
+        title="Recuperação de senha"
+        withGoBack
+        onGoBacK={navigation.goBack}
       />
-      <ButtonSubmit onPress={() => {}}>
-        {loading ? <Loading /> : <ButtonText> Recuperar </ButtonText>}
-      </ButtonSubmit>
+
+      <Content>
+        <Logo source={LogoVolks} />
+        <InputEmail
+          label="Email *"
+          onChangeText={(value) => setEmail(value)}
+          value={email}
+          autoCorrect={false}
+          autoCapitalize="none"
+          returnKeyType="done"
+          keyboardType="email-address"
+          onSubmitEditing={handleSubmit}
+        />
+        <ButtonSubmit onPress={handleSubmit}>
+          {loading ? <Loading /> : <ButtonText> Recuperar </ButtonText>}
+        </ButtonSubmit>
+      </Content>
     </Container>
   );
 };
 
-export default Login;
+export default RecoveryPassword;

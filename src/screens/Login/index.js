@@ -7,6 +7,8 @@ import {
   ButtonSubmit,
   ButtonText,
   Loading,
+  TouchableRecovery,
+  TouchableRecoveryTitle,
 } from './styles';
 import StatusBar from '../../components/StatusBar';
 import AuthService from '../../services/auth';
@@ -70,6 +72,9 @@ const Login = ({ navigation }) => {
         value={password}
         onSubmitEditing={handleFormSubmit}
       />
+      <TouchableRecovery onPress={() => navigation.push('RecoveryPassword')}>
+        <TouchableRecoveryTitle>Esqueceu sua senha?</TouchableRecoveryTitle>
+      </TouchableRecovery>
       <ButtonSubmit onPress={handleFormSubmit}>
         {loading ? <Loading /> : <ButtonText> Entrar </ButtonText>}
       </ButtonSubmit>

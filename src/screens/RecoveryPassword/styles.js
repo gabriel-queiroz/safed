@@ -6,7 +6,11 @@ import {
 } from 'react-native-paper';
 import { colors, Container as ContainerStyled } from '../../theme';
 
-export const Container = styled(ContainerStyled)`
+export const Container = styled.View`
+  flex: 1;
+`;
+
+export const Content = styled(ContainerStyled)`
   align-items: stretch;
   width: 100%;
   justify-content: center;

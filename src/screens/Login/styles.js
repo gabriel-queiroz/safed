@@ -66,3 +66,12 @@ export const Loading = styled(ActivityIndicator).attrs({
   color: colors.white,
   animating: true,
 })``;
+
+export const TouchableRecovery = styled.TouchableOpacity`
+  background-color: ${colors.white};
+  margin: 10px 0px 15px 0px;
+`;
+export const TouchableRecoveryTitle = styled.Text`
+  color: ${colors.darkBlue};
+  font-size: 16px;
+`;

@@ -92,7 +92,7 @@ const LoggedOut = () => (
   <LoggedOutStack.Navigator {...stackProps}>
     <LoggedOutStack.Screen name="Login" component={Login} />
     <LoggedOutStack.Screen
-      name="RecoveryPassoword"
+      name="RecoveryPassword"
       component={RecoveryPassoword}
     />
   </LoggedOutStack.Navigator>
