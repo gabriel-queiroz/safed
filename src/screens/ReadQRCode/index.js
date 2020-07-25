@@ -33,7 +33,6 @@ const ReadQRCode = ({ route, navigation }) => {
       setLoading(false);
       navigation.dispatch(StackActions.replace('ReadBarCode'));
     } catch (error) {
-      console.log(error.response);
       setLoading(false);
       showMessage({
         message: 'Ops! aconteceu um erro ao salvar',

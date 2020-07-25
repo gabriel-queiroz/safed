@@ -17,7 +17,6 @@ import { actions } from '../../store/ducks/auth';
 import LogoVolks from '../../assets/icon.png';
 
 const Login = ({ navigation }) => {
-  const userData = useSelector(({ auth }) => auth);
   const dispatch = useDispatch();
   const refInputPassword = useRef(null);
   const [email, setEmail] = useState('');
@@ -30,7 +29,6 @@ const Login = ({ navigation }) => {
       try {
         const { data } = await AuthService.login(email, password);
         const token = data.access_token;
-        console.log(token);
         await StorageService.saveToken(token);
         showMessage({
           message: 'Bem vindo',
@@ -38,8 +36,6 @@ const Login = ({ navigation }) => {
         });
         dispatch({ type: actions.LOAD_TOKEN, payload: token });
       } catch (error) {
-        console.log('continua no error');
-        console.log(error.response.data);
         showMessage({
           message: 'Erro na autenticação!',
           description: 'Verifique seus dados de acesso',

@@ -30,7 +30,6 @@ export default function ReadBarCode({ navigation }) {
 
   const handleError = (error) => {
     alert('O usuário não deu permissão');
-    console.log(error);
   };
 
   return (

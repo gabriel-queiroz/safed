@@ -17,15 +17,19 @@ import {
 } from './styles';
 import Header from '../../components/Header';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { showMessage, Types } from '../../services/message';
+import ExportService from '../../services/exportBarCode';
+import queryString from 'query-string';
 import dayjs from 'dayjs';
 
 const Export = () => {
   const [value, setValue] = useState('first');
   const [dateInitial, setDateInitial] = useState(new Date());
-  const [isInitialDate, setIsInitialDate] = useState(false);
   const [dateFinal, setDateFinal] = useState(new Date());
+  const [isInitialDate, setIsInitialDate] = useState(true);
   const [mode, setMode] = useState('date');
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const onChange = (event, selectedDate) => {
     setShowDatePicker(false);
@@ -47,13 +51,48 @@ const Export = () => {
     setIsInitialDate(isInitial);
     setShowDatePicker(true);
   };
+
+  const handleSubmit = async () => {
+    setLoading(true);
+    let data = value;
+    if (value === 'interval') {
+      data = `${value}?${queryString.stringify({
+        start: dayjs(dateInitial).format(),
+        end: dayjs(dateFinal).format(),
+      })}`;
+    }
+    try {
+      await ExportService.post(data);
+      showMessage({
+        message: 'Exportação realizada com suceso!',
+        description: 'Em instantes você receberá o relatório em seu email!',
+        type: Types.SUCCESS,
+      });
+      setLoading(false);
+      setValue(true);
+    } catch (error) {
+      showMessage({
+        message: 'Erro ao exportar dados!',
+        type: Types.DANGER,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Container>
       <Header title="Exportação de Dados" withMenu></Header>
       <Content>
         <Title>Selecione Opção de exportação</Title>
         <RadioButton.Group
-          onValueChange={(value) => setValue(value)}
+          onValueChange={(value) => {
+            setValue(value);
+            if (value === 'interval') {
+              return setShowDatePicker(true);
+            }
+            return setShowDatePicker(false);
+          }}
           value={value}
         >
           <RadioButtonContainer>
@@ -108,8 +147,8 @@ const Export = () => {
             onChange={onChange}
           />
         )}
-        <ButtonSubmit onPress={() => setShow(true)}>
-          {false ? <Loading /> : <ButtonText> Exportar </ButtonText>}
+        <ButtonSubmit onPress={handleSubmit}>
+          {loading ? <Loading /> : <ButtonText> Exportar </ButtonText>}
         </ButtonSubmit>
       </Content>
     </Container>
