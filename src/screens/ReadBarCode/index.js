@@ -10,6 +10,7 @@ import { RNCamera } from 'react-native-camera';
 import Header from '../../components/Header';
 import styles from './styles';
 import { colors } from '../../theme';
+import _ from 'lodash';
 
 export default function ReadBarCode({ navigation }) {
   const PendingView = () => (
@@ -24,8 +25,11 @@ export default function ReadBarCode({ navigation }) {
   );
 
   const handleReadBarCode = async (data) => {
-    alert('O usuário não deu permissão');
-    console.log(data);
+    console.log('entrou aqui');
+    navigation.push('ReadQRCode', { barcode: data });
+    // _.throttle(() => {
+
+    // }, 500);
   };
 
   const handleError = (error) => {
