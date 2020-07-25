@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Container,
   InputBarCode,
@@ -11,26 +11,40 @@ import Header from '../../components/Header';
 import StatusBar from '../../components/StatusBar';
 
 const UserForm = ({ navigation }) => {
-  const [barCode, setBarCode] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [barcode, setBarcode] = useState('');
+  const inputRef = useRef();
+  const handleSubmit = () => {
+    navigation.push('ReadQRCode', { barcode });
+  };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   return (
     <Container>
       <StatusBar />
       <Header
-        onGoBack={() => navigation.pop()}
+        onGoBack={navigation.goBack}
         title="Insira o código de Barra"
         withGoBack
       />
       <Form>
         <InputBarCode
+          ref={inputRef}
           label="Codigo de Barra *"
-          onChangeText={(value) => setBarCode(value)}
-          value={barCode}
-          multiline={true}
+          onChangeText={(value) => setBarcode(value)}
+          autoCorrect={false}
+          value={barcode}
+          onSubmitEditing={handleSubmit}
+          autoCapitalize="none"
+          returnKeyType="next"
+          keyboardType="number-pad"
         />
-        <ButtonSubmit onPress={() => {}}>
-          {loading ? <Loading /> : <ButtonText> Continuar </ButtonText>}
+        <ButtonSubmit onPress={handleSubmit}>
+          <ButtonText> Continuar </ButtonText>
         </ButtonSubmit>
       </Form>
     </Container>

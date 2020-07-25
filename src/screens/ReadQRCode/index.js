@@ -28,7 +28,7 @@ const ReadQRCode = ({ route, navigation }) => {
       showMessage({
         message: 'Codigo salvo com sucesso!',
         description: 'Verifique seus dados de acesso',
-        type: Types.DANGER,
+        type: Types.SUCCESS,
       });
       setLoading(false);
       navigation.dispatch(StackActions.replace('ReadBarCode'));
