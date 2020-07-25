@@ -28,7 +28,8 @@ const Login = ({ navigation }) => {
       try {
         const { data } = await AuthService.login(email, password);
         const token = data.access_token;
-        StorageService.saveToken(token);
+        console.log(token);
+        await StorageService.saveToken(token);
         showMessage({
           message: 'Bem vindo',
           type: Types.SUCCESS,

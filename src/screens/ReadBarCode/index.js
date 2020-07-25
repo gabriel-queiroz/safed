@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import Header from '../../components/Header';
 import styles from './styles';
 import { colors } from '../../theme';
 
@@ -35,6 +36,7 @@ export default function ReadBarCode({ navigation }) {
   return (
     <>
       <SafeAreaView style={styles.safeTopContainer} />
+      <Header withMenu title="Ler código de Barra" />
       <SafeAreaView style={styles.safeContainer}>
         <RNCamera
           style={styles.preview}

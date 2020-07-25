@@ -9,6 +9,7 @@ export const actions = {
 };
 
 export default function glassReducer(state = initialState, action) {
+  console.log(action);
   switch (action.type) {
     case actions.LOAD_TOKEN:
       return { ...state, token: action.payload, loading: false };

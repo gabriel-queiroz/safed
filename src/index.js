@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Routes from './routes';
 import StorageService from './services/storage';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,13 +28,12 @@ const App = () => {
         if (!tokenData) {
           return dispatch({ type: actions.CHANGE_LOADER, payload: false });
         }
-        dispatch({ action: actions.LOAD_TOKEN, payload: tokenData });
+        dispatch({ type: actions.LOAD_TOKEN, payload: tokenData });
       })
       .catch((error) => {
         dispatch({ type: actions.CHANGE_LOADER, payload: false });
       });
   }, []);
-  console.log(authReducer.token);
   return (
     <PaperProvider theme={theme}>
       <Container>
