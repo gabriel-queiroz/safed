@@ -11,11 +11,35 @@ import {
 } from './styles';
 import Header from '../../components/Header';
 import Dialog from 'react-native-dialog';
+import { StackActions } from '@react-navigation/native';
+import BarCodeService from '../../services/barCode';
+import { showMessage, Types } from '../../services/message';
+
 const ReadQRCode = ({ route, navigation }) => {
   const [loading, setLoading] = useState(false);
+  const { barcode } = route.params;
 
-  const onSuccess = async (e) => {
+  const onSuccess = async ({ data }) => {
     setLoading(true);
+    try {
+      await BarCodeService.post({
+        codes: [{ chassi: barcode, connectCar: data }],
+      });
+      showMessage({
+        message: 'Codigo salvo com sucesso!',
+        description: 'Verifique seus dados de acesso',
+        type: Types.DANGER,
+      });
+      setLoading(false);
+      navigation.dispatch(StackActions.replace('ReadBarCode'));
+    } catch (error) {
+      console.log(error.response);
+      setLoading(false);
+      showMessage({
+        message: 'Ops! aconteceu um erro ao salvar',
+        type: Types.DANGER,
+      });
+    }
   };
 
   return (

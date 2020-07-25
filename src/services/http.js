@@ -5,41 +5,6 @@ const http = axios.create({
   baseURL: 'https://app.safed.com.br/api',
 });
 
-import { showMessage, Types, Duration } from './message';
-
-// http.interceptors.response.use(
-//   (response) => {
-//     return response;
-//   },
-//   (error) => {
-//     if (!error.response) {
-//       showMessage({
-//         message: 'Sem conexão',
-//         description: 'Verifique sua conexão com a internet',
-//         type: Types.DANGER,
-//         floating: true,
-//         icon: 'danger',
-//         duration: Duration.large,
-//       });
-//     }
-//     if (error.response.status === 500) {
-//       showMessage({
-//         message: 'Ops, falha nossa!',
-//         description: 'Ocorreu um erro em nossos servidores',
-//         type: Types.DANGER,
-//         floating: true,
-//         icon: 'danger',
-//         duration: Duration.large,
-//       });
-//     }
-//     if (error.response.status === 401) {
-//       // AuthStore.logout();
-//       return Promise.reject(error);
-//     }
-//     return Promise.reject(error);
-//   },
-// );
-
 http.interceptors.request.use(
   async (request) => {
     const token = await StorageService.getToken();
@@ -48,13 +13,7 @@ http.interceptors.request.use(
     }
     return request;
   },
-  (error) => {
-    // if (error.response.status === 401) {
-    //   AuthStore.logout();
-    //   return Promise.reject(error);
-    // }
-    // return Promise.reject(error);
-  },
+  (error) => {},
 );
 
 export default http;
