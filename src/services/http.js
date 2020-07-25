@@ -2,7 +2,7 @@ import axios from 'axios';
 import StorageService from './storage';
 
 const http = axios.create({
-  baseURL: 'https://teste.diluise.com.br/api',
+  baseURL: 'https://app.safed.com.br/api',
 });
 
 import { showMessage, Types, Duration } from './message';

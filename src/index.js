@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Routes from './routes';
 import StorageService from './services/storage';
+import { useDispatch, useSelector } from 'react-redux';
 import Loader from './components/Loader';
 import { Container } from './theme';
 import StatusBar from './components/StatusBar';
+import { actions } from './store/ducks/auth';
 import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { colors } from './theme';
 import FlashMessage from 'react-native-flash-message';
@@ -17,19 +19,21 @@ const App = () => {
       primary: colors.darkBlue,
     },
   };
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [token, setToken] = useState(null);
+  const authReducer = useSelector(({ auth }) => auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     StorageService.getToken()
       .then((tokenData) => {
-        console.log(token);
-        setToken(tokenData);
-        setIsLoading(false);
+        console.log(tokenData);
+        if (!tokenData) {
+          console.log('ahhdhd');
+          return dispatch({ type: actions.CHANGE_LOADER, payload: false });
+        }
+        // dispatch({ action: actions.LOAD_TOKEN, payload: tokenData });
       })
       .catch((error) => {
-        console.log(error);
+        dispatch({ type: actions.CHANGE_LOADER, payload: false });
       });
   }, []);
 
@@ -37,12 +41,12 @@ const App = () => {
     <PaperProvider theme={theme}>
       <Container>
         <>
-          {isLoading ? (
+          {authReducer.loading ? (
             <Loader />
           ) : (
             <>
               <StatusBar />
-              <Routes isLogged={token} />
+              <Routes isLogged={authReducer.token} />
             </>
           )}
           <FlashMessage position="top" />
