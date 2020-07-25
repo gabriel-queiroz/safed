@@ -12,25 +12,28 @@ import StatusBar from '../../components/StatusBar';
 import Header from '../../components/Header';
 import LogoVolks from '../../assets/icon.png';
 import AuthService from '../../services/auth';
+import { showMessage, Types } from '../../services/message';
 
 const RecoveryPassword = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
     try {
-      await AuthService.resetPassword({email});
+      await AuthService.resetPassword({ email });
       showMessage({
         message: 'Você receberá uma email com uma nova senha!',
         type: Types.SUCCESS,
       });
+      navigation.goBack();
     } catch (error) {
+      console.log(error.response);
       showMessage({
         message: 'Erro ao recuperar senha, verifique se o email está correto!',
         type: Types.DANGER,
       });
-    }finally{
+    } finally {
       setLoading(false);
     }
   };
