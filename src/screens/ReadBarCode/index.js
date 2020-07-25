@@ -10,7 +10,7 @@ import { RNCamera } from 'react-native-camera';
 import Header from '../../components/Header';
 import styles from './styles';
 import { colors } from '../../theme';
-import _ from 'lodash';
+import { debounce } from 'throttle-debounce';
 
 export default function ReadBarCode({ navigation }) {
   const PendingView = () => (
@@ -24,12 +24,8 @@ export default function ReadBarCode({ navigation }) {
     </>
   );
 
-  const handleReadBarCode = async (data) => {
-    console.log('entrou aqui');
-    navigation.push('ReadQRCode', { barcode: data });
-    // _.throttle(() => {
-
-    // }, 500);
+  const handleReadBarCode = (barcode) => {
+    navigation.push('ReadQRCode', { barcode: barcode.data });
   };
 
   const handleError = (error) => {
@@ -46,15 +42,8 @@ export default function ReadBarCode({ navigation }) {
           style={styles.preview}
           captureAudio={false}
           onMountError={handleError}
-          type={RNCamera.Constants.Type.back}
           flashMode={RNCamera.Constants.FlashMode.on}
-          onBarCodeRead={handleReadBarCode}
-          androidCameraPermissionOptions={{
-            title: 'Permissão para usar a câmera',
-            message: 'Precisamos da sua permissão para usar sua câmera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancelar',
-          }}
+          onBarCodeRead={debounce(2000, true, handleReadBarCode)}
         >
           {({ camera, status }) => {
             if (status !== 'READY') return <PendingView />;

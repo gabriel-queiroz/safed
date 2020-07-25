@@ -2,16 +2,15 @@ import React from 'react';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { Container, Title, Content, Qrcode } from './styles';
 import Header from '../../components/Header';
-const ReadQRCode = () => {
+const ReadQRCode = ({ route, navigation }) => {
   const handleButton = () => {};
-
   const onSuccess = async (e) => {
     console.log(e);
   };
 
   return (
     <Container>
-      <Header title="Ler qrcode" />
+      <Header withGoBack onGoBack={navigation.goBack} title="Ler qrcode" />
       <Content>
         <Title>Aponte o QRCODE</Title>
       </Content>
