@@ -56,12 +56,19 @@ const Login = ({ navigation }) => {
         label="Email *"
         onChangeText={(value) => setEmail(value)}
         value={email}
+        autoCorrect={false}
+        autoCapitalize="none"
+        returnKeyType="next"
+        keyboardType="email-address"
+        onSubmitEditing={() => console.log('next focus')}
       />
       <InputPassword
         label="Senha *"
         secureTextEntry
+        returnKeyType="done"
         onChangeText={(value) => setPassword(value)}
         value={password}
+        ons
       />
       <ButtonSubmit onPress={handleFormSubmit}>
         {loading ? <Loading /> : <ButtonText> Entrar </ButtonText>}
