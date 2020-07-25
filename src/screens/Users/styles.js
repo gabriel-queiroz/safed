@@ -122,3 +122,14 @@ export const FloatButton = styled(ActionButton).attrs({
   size: 70,
   buttonTextStyle: { fontSize: 30 },
 })``;
+
+export const ContainerLoader = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Loader = styled.ActivityIndicator.attrs({
+  color: colors.darkBlue,
+  size: 'large',
+})``;

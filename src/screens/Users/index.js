@@ -6,6 +6,8 @@ import {
   List,
   ContainerAux,
   FloatButton,
+  ContainerLoader,
+  Loader,
 } from './styles';
 import ListItem from './listItem';
 import Header from '../../components/Header';
@@ -14,20 +16,7 @@ import UserService from '../../services/user';
 import { showMessage, Types } from '../../services/message';
 
 const Users = ({ navigation }) => {
-  const [list, setList] = useState([
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-    {},
-  ]);
+  const [list, setList] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [loadingScroll, setLoadingScroll] = useState(false);
@@ -51,16 +40,20 @@ const Users = ({ navigation }) => {
     }
   };
 
-  const renderItem = ({ item, index }) => <ListItem onDelete={deleteUser} />;
+  const renderItem = ({ item, index }) => (
+    <ListItem data={item} onDelete={deleteUser} />
+  );
 
   const getUsers = async () => {
     try {
       const { data } = await UserService.getAll();
-    } catch (error) {}
-    setList(data);
+      setList(data.data.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => getUsers, []);
+  useEffect(() => getUsers(), []);
 
   return (
     <>
@@ -76,6 +69,11 @@ const Users = ({ navigation }) => {
             onRefresh={() => {}}
             renderItem={renderItem}
             onEndReached={() => {}}
+            ListEmptyComponent={
+              <ContainerLoader>
+                <Loader />
+              </ContainerLoader>
+            }
             onEndReachedThreshold={0.1}
             refreshControl={
               <RefreshControl

@@ -45,13 +45,13 @@ const User = () => {
       if (password) {
         data.password = password;
       }
-      console.log(data);
       await UserService.update(auth.user.id, data);
       showMessage({
         message: 'Usuário atualizado com sucesso!',
         type: Types.SUCCESS,
       });
     } catch (error) {
+      console.log(error.response);
       showMessage({
         message: 'Erro ao atualizar usuário!',
         description: 'Verifique sua conexão com a internet',

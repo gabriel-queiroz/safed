@@ -8,12 +8,13 @@ import {
   ButtonIcon,
   Email,
 } from './styles';
-const listItem = () => {
+const listItem = ({ data }) => {
+  console.log(data);
   return (
     <Container>
       <Header>
-        <HeaderTitle>Gabriel</HeaderTitle>
-        <Email>gabrielqueirozzn@gmail.com</Email>
+        <HeaderTitle>{data.name}</HeaderTitle>
+        <Email>{}data.email</Email>
       </Header>
       <Buttons>
         <Button>
