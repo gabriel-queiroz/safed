@@ -32,6 +32,7 @@ const User = () => {
           type: Types.DANGER,
         });
       }
+      console.log(nome);
       if (!name) {
         return showMessage({
           message: 'Por favor, informe o seu nome!',

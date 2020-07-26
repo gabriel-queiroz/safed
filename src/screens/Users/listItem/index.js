@@ -8,19 +8,18 @@ import {
   ButtonIcon,
   Email,
 } from './styles';
-const listItem = ({ data }) => {
-  console.log(data);
+const listItem = ({ data, onEdit, onDelete }) => {
   return (
     <Container>
       <Header>
         <HeaderTitle>{data.name}</HeaderTitle>
-        <Email>{}data.email</Email>
+        <Email>{data.email}</Email>
       </Header>
       <Buttons>
-        <Button>
+        <Button onPress={() => onEdit(data)}>
           <ButtonIcon name="pencil" />
         </Button>
-        <Button danger>
+        <Button danger onPress={() => onDelete(data.id)}>
           <ButtonIcon name="trash" />
         </Button>
       </Buttons>

@@ -25,6 +25,7 @@ const Users = ({ navigation }) => {
   const [networkError, setNetworkError] = useState(500);
 
   const deleteUser = async (userId) => {
+    console.log(userId);
     try {
       await UserService.delete(userId);
       showMessage({
@@ -40,8 +41,13 @@ const Users = ({ navigation }) => {
     }
   };
 
+  const editUser = (user) => {
+    console.log(user);
+    navigation.push('UsersForm', user);
+  };
+
   const renderItem = ({ item, index }) => (
-    <ListItem data={item} onDelete={deleteUser} />
+    <ListItem data={item} onEdit={editUser} onDelete={deleteUser} />
   );
 
   const getUsers = async () => {
