@@ -55,13 +55,27 @@ const UserForm = ({ navigation, route }) => {
       });
       navigation.goBack();
     } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.errors &&
+        error.response.data.errors.email &&
+        error.response.data.errors.email[0] === 'validation.unique'
+      ) {
+        return showMessage({
+          message: 'Email já utilizado!',
+          description: 'Por favor, cadastre outro email',
+          type: Types.DANGER,
+        });
+      }
+
       showMessage({
         message: 'Erro ao criar usuário!',
         description: 'Verifique sua conexão com a internet',
         type: Types.DANGER,
       });
     } finally {
-      setLoading(true);
+      setLoading(false);
     }
   };
 
@@ -81,17 +95,30 @@ const UserForm = ({ navigation, route }) => {
     }
     setLoading(true);
     try {
-      showMessage({
-        message: 'Usuário atualizado com sucesso!',
-        type: Types.SUCCESS,
-      });
       const data = {
         name,
         email,
       };
       await UserService.update(user.id, data);
+      showMessage({
+        message: 'Informações atualizadas com sucesso!',
+        type: Types.SUCCESS,
+      });
       navigation.goBack();
     } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.errors &&
+        error.response.data.errors.email &&
+        error.response.data.errors.email[0] === 'validation.unique'
+      ) {
+        return showMessage({
+          message: 'Email já utilizado!',
+          description: 'Por favor, cadastre outro email',
+          type: Types.DANGER,
+        });
+      }
       showMessage({
         message: 'Erro ao atualizar usuário!',
         description: 'Verifique sua conexão com a internet',
@@ -110,6 +137,7 @@ const UserForm = ({ navigation, route }) => {
           label="Nome *"
           onChangeText={(value) => setName(value)}
           value={name}
+          autoCorrect={false}
           autoCapitalize="none"
           returnKeyType="next"
           onSubmitEditing={() => refInputEmail.current.focus()}
@@ -119,6 +147,7 @@ const UserForm = ({ navigation, route }) => {
           label="Email *"
           onChangeText={(value) => setEmail(value)}
           value={email}
+          autoCorrect={false}
           keyboardType="email-address"
           autoCapitalize="none"
           returnKeyType="next"

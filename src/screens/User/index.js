@@ -51,6 +51,19 @@ const User = () => {
         type: Types.SUCCESS,
       });
     } catch (error) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.errors &&
+        error.response.data.errors.email &&
+        error.response.data.errors.email[0] === 'validation.unique'
+      ) {
+        return showMessage({
+          message: 'Email já utilizado!',
+          description: 'Por favor, cadastre outro email',
+          type: Types.DANGER,
+        });
+      }
       showMessage({
         message: 'Erro ao atualizar usuário!',
         description: 'Verifique sua conexão com a internet',
@@ -71,6 +84,7 @@ const User = () => {
           onChangeText={(value) => setName(value)}
           value={name}
           autoCapitalize="none"
+          autoCorrect={false}
           returnKeyType="next"
           onSubmitEditing={() => refInputEmail.current.focus()}
         />
@@ -80,6 +94,7 @@ const User = () => {
           onChangeText={(value) => setEmail(value)}
           value={email}
           autoCapitalize="none"
+          autoCorrect={false}
           returnKeyType="next"
           onSubmitEditing={() => refInputPassword.current.focus()}
         />
@@ -89,6 +104,7 @@ const User = () => {
           secureTextEntry
           autoCapitalize="none"
           returnKeyType="done"
+          autoCorrect={false}
           onChangeText={(value) => setPassword(value)}
           value={password}
           onSubmitEditing={updateUser}
