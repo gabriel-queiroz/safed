@@ -8,6 +8,7 @@ import {
   FloatButton,
   ContainerLoader,
   Loader,
+  ContainerLoaderScroll,
 } from './styles';
 import ListItem from './listItem';
 import Header from '../../components/Header';
@@ -20,6 +21,7 @@ const Users = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [loadingScroll, setLoadingScroll] = useState(false);
   const [pagination, setPagination] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
 
   const deleteUser = async (userId) => {
     try {
@@ -48,20 +50,40 @@ const Users = ({ navigation }) => {
 
   const handlePage = () => {
     const page = pagination + 1;
-    getUsers(pagination + 1, () => setPagination(page));
+    if (page <= lastPage) {
+      setLoadingScroll(true);
+      getUsers(page, () => setPagination(page));
+    }
   };
 
   const renderItem = ({ item, index }) => (
     <ListItem data={item} onEdit={editUser} onDelete={deleteUser} />
   );
 
-  const getUsers = async (page, callback = () => {}) => {
+  renderFooter = () => {
+    if (!loadingScroll) return null;
+    return (
+      <ContainerLoaderScroll>
+        <Loader />
+      </ContainerLoaderScroll>
+    );
+  };
+
+  const getUsers = async (page, isPaged = false, callback = () => {}) => {
     try {
       const { data } = await UserService.getAll(page);
-      setList([...list, ...data.data.data]);
+      setLastPage(data.data.last_page);
+      if (isPaged) {
+        setList([...list, ...data.data.data]);
+      } else {
+        setList(data.data.data);
+      }
       callback();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
+      setLoadingScroll(false);
     }
   };
 
@@ -73,7 +95,6 @@ const Users = ({ navigation }) => {
   }, []);
 
   useEffect(() => getUsers(1), [navigation]);
-
   return (
     <>
       <ContainerAux />
@@ -85,15 +106,6 @@ const Users = ({ navigation }) => {
             }}
             data={list}
             refreshing={loading}
-            onRefresh={async () => {
-              setLoading(true);
-              try {
-                await getUsers();
-              } catch (error) {
-              } finally {
-                setLoading(false);
-              }
-            }}
             renderItem={renderItem}
             onEndReached={handlePage}
             ListEmptyComponent={
@@ -109,11 +121,15 @@ const Users = ({ navigation }) => {
                 style={{
                   backgroundColor: colors.primary,
                 }}
-                onRefresh={() => {}}
+                onRefresh={() => {
+                  setLoading(true);
+                  getUsers(1, false);
+                }}
                 tintColor={colors.white}
               />
             }
             ListHeaderComponent={<Header withMenu title="Usuários" />}
+            ListFooterComponent={renderFooter}
           />
         </ContentList>
         <FloatButton

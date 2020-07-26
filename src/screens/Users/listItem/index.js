@@ -12,8 +12,8 @@ const listItem = ({ data, onEdit, onDelete }) => {
   return (
     <Container>
       <Header>
-        <HeaderTitle>{data.name}</HeaderTitle>
-        <Email>{data.email}</Email>
+        <HeaderTitle>{data.name.substring(0, 30)}</HeaderTitle>
+        <Email>{data.email.substring(0, 30)}</Email>
       </Header>
       <Buttons>
         <Button onPress={() => onEdit(data)}>

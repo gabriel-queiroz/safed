@@ -132,3 +132,8 @@ export const Loader = styled.ActivityIndicator.attrs({
   color: colors.darkBlue,
   size: 'large',
 })``;
+
+export const ContainerLoaderScroll = styled.View`
+  width: 100%;
+  align-items: center;
+`;
