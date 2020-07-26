@@ -26,8 +26,7 @@ const ReadQRCode = ({ route, navigation }) => {
         codes: [{ chassi: barcode, connectCar: data }],
       });
       showMessage({
-        message: 'Codigo salvo com sucesso!',
-        description: 'Verifique seus dados de acesso',
+        message: 'Registro salvo com sucesso!',
         type: Types.SUCCESS,
       });
       setLoading(false);
