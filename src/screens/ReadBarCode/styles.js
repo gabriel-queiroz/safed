@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     maxWidth: 100,
     height: '100%',
     alignItems: 'center',
-    paddingVertical: '30%',
+    justifyContent: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   content: {
@@ -105,7 +105,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: 400,
-    paddingVertical: '60%',
   },
 });
 

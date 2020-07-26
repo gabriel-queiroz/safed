@@ -111,6 +111,7 @@ def enableProguardInReleaseBuilds = false
  */
 def jscFlavor = 'org.webkit:android-jsc:+'
 
+
 /**
  * Whether to enable the Hermes VM.
  *
@@ -127,6 +128,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dexOptions {
+    javaMaxHeapSize "4g"
+  }
 
     defaultConfig {
         applicationId "com.safed"

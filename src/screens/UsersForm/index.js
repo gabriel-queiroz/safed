@@ -131,7 +131,10 @@ const UserForm = ({ navigation, route }) => {
 
   return (
     <Container>
-      <Header title="Novo Usuário" withGoBack />
+      <Header
+        title={route.params ? 'Editar Usuário' : 'Novo Usuário'}
+        withGoBack
+      />
       <Form>
         <InputEmail
           label="Nome *"
