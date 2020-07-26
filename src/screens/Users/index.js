@@ -17,27 +17,27 @@ import { showMessage, Types } from '../../services/message';
 
 const Users = ({ navigation }) => {
   const [list, setList] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [loadingScroll, setLoadingScroll] = useState(false);
-  const [pagination, setPagination] = useState({ page: 1 });
-  const [finishedMessage, setFinishedMessage] = useState(false);
-  const [networkError, setNetworkError] = useState(500);
+  const [pagination, setPagination] = useState(1);
 
   const deleteUser = async (userId) => {
-    console.log(userId);
     try {
+      setLoading(true);
       await UserService.delete(userId);
       showMessage({
         message: 'Usuário excluido com sucesso!',
         type: Types.SUCCESS,
       });
+      await getUsers(1);
     } catch (error) {
       showMessage({
         message: 'Erro ao excluir usuário!',
         description: 'Verifique sua conexão com a internet',
         type: Types.DANGER,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -46,20 +46,33 @@ const Users = ({ navigation }) => {
     navigation.push('UsersForm', user);
   };
 
+  const handlePage = () => {
+    const page = pagination + 1;
+    getUsers(pagination + 1, () => setPagination(page));
+  };
+
   const renderItem = ({ item, index }) => (
     <ListItem data={item} onEdit={editUser} onDelete={deleteUser} />
   );
 
-  const getUsers = async () => {
+  const getUsers = async (page, callback = () => {}) => {
     try {
-      const { data } = await UserService.getAll();
-      setList(data.data.data);
+      const { data } = await UserService.getAll(page);
+      setList([...list, ...data.data.data]);
+      callback();
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => getUsers(), []);
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      getUsers(1);
+    });
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => getUsers(1), [navigation]);
 
   return (
     <>
@@ -72,9 +85,17 @@ const Users = ({ navigation }) => {
             }}
             data={list}
             refreshing={loading}
-            onRefresh={() => {}}
+            onRefresh={async () => {
+              setLoading(true);
+              try {
+                await getUsers();
+              } catch (error) {
+              } finally {
+                setLoading(false);
+              }
+            }}
             renderItem={renderItem}
-            onEndReached={() => {}}
+            onEndReached={handlePage}
             ListEmptyComponent={
               <ContainerLoader>
                 <Loader />

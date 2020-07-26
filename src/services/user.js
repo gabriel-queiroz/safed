@@ -1,8 +1,8 @@
 import http from './http.js';
 
 export default class UserService {
-  static getAll() {
-    return http.get('/user');
+  static getAll(page) {
+    return http.get(`/user?page=${page}`);
   }
   static post(data) {
     return http.post('/user', data);
