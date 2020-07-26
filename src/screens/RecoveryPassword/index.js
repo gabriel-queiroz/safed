@@ -28,7 +28,6 @@ const RecoveryPassword = ({ navigation }) => {
       });
       navigation.goBack();
     } catch (error) {
-      console.log(error.response);
       showMessage({
         message: 'Erro ao recuperar senha, verifique se o email está correto!',
         type: Types.DANGER,

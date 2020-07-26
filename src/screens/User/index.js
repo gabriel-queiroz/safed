@@ -32,7 +32,6 @@ const User = () => {
           type: Types.DANGER,
         });
       }
-      console.log(nome);
       if (!name) {
         return showMessage({
           message: 'Por favor, informe o seu nome!',
@@ -52,7 +51,6 @@ const User = () => {
         type: Types.SUCCESS,
       });
     } catch (error) {
-      console.log(error.response);
       showMessage({
         message: 'Erro ao atualizar usuário!',
         description: 'Verifique sua conexão com a internet',

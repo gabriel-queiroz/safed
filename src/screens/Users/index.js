@@ -44,15 +44,18 @@ const Users = ({ navigation }) => {
   };
 
   const editUser = (user) => {
-    console.log(user);
     navigation.push('UsersForm', user);
   };
 
   const handlePage = () => {
-    const page = pagination + 1;
-    if (page <= lastPage) {
-      setLoadingScroll(true);
-      getUsers(page, () => setPagination(page));
+    if (!loadingScroll) {
+      const page = pagination + 1;
+      if (page <= lastPage) {
+        setLoadingScroll(true);
+        getUsers(page, true, () => {
+          setPagination(page);
+        });
+      }
     }
   };
 
@@ -80,7 +83,6 @@ const Users = ({ navigation }) => {
       }
       callback();
     } catch (error) {
-      console.log(error);
     } finally {
       setLoading(false);
       setLoadingScroll(false);
@@ -95,6 +97,7 @@ const Users = ({ navigation }) => {
   }, []);
 
   useEffect(() => getUsers(1), [navigation]);
+
   return (
     <>
       <ContainerAux />
@@ -113,7 +116,7 @@ const Users = ({ navigation }) => {
                 <Loader />
               </ContainerLoader>
             }
-            onEndReachedThreshold={0.1}
+            onEndReachedThreshold={0.3}
             refreshControl={
               <RefreshControl
                 refreshing={loading}
