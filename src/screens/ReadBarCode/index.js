@@ -43,7 +43,6 @@ export default function ReadBarCode({ navigation }) {
           onMountError={handleError}
           flashMode={RNCamera.Constants.FlashMode.on}
           onBarCodeRead={debounce(2000, true, handleReadBarCode)}
-          barCodeTypes={[RNCamera.Constants.BarCodeType.code128]}
         >
           {({ camera, status }) => {
             if (status !== 'READY') return <PendingView />;

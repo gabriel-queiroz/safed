@@ -41,7 +41,6 @@ const UserForm = ({ navigation }) => {
           onSubmitEditing={handleSubmit}
           autoCapitalize="none"
           returnKeyType="next"
-          keyboardType="number-pad"
         />
         <ButtonSubmit onPress={handleSubmit}>
           <ButtonText> Continuar </ButtonText>
